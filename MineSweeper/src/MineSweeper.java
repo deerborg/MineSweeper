@@ -1,13 +1,21 @@
+/**
+ * @author Furkan Aydemir, deerborg
+ * @since 2024
+ * @code
+ *          goPlay() - Oyunu başlatır
+ *          createBoardManager() - Mayınların olduğu haritanın çıktısını verir.
+ *          createBoardPlayer() - Oyuncunun göreceği, mayınların gösterilmediği haritayı verir.
+ *          addMine() - Harita içine rastgele konumlarda mayınlar (-1) atar.
+ *          checkMine() - Oyun içinde girilen konumların çapraz ve dikey bölümlerindeki mayınları belirler, varsa bulunan konumu (0) mayın adeti kadar arttırır.
+ */
 import java.util.Random;
 import java.util.Scanner;
-
 public class MineSweeper {
     int rowNumber;
     int colNumber;
     int boardSize;
     int[][] managerMap;
     int[][] userMap;
-
     public MineSweeper(int rowNumber, int colNumber) {
         this.rowNumber = rowNumber;
         this.colNumber = colNumber;
@@ -15,34 +23,41 @@ public class MineSweeper {
         this.userMap = new int[rowNumber][colNumber];
         this.boardSize = rowNumber * colNumber;
     }
-
-    Random random = new Random();
-    Scanner scanner = new Scanner(System.in);
-
+    Random giveMine = new Random();
+    Scanner userValue = new Scanner(System.in);
     public void goPlay() {
         // Yeni konum satır ve sütün değişkenleri, tek seferde oyunu bitirebilme kontrolü için sayaç
-        int goRow,goCol,clearChoice = 0;
+        int goRow , goCol,clearChoice = 0, countRow = -1, counCol = -1;
+
         addMine();
         createBoardManager(managerMap);
         System.out.println("---------------");
         while(true){
             createBoardPlayer(userMap);
+
             // Gidilecek satır bilgisi
             System.out.println("ENTER ROW");
-            goRow = scanner.nextInt();
-            if(goRow >= rowNumber  || goRow < 0 ){
+            goRow = userValue.nextInt();
+            if(goRow >= rowNumber  || goRow < 0){
                 System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
             // Gidilecek sütun bilgisi
             System.out.println("ENTER COL");
-            goCol = scanner.nextInt();
+            goCol = userValue.nextInt();
             if(goCol >= colNumber || goCol < 0){
                 System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
+            // Tekrar aynı konumları girerse bu koşul çalışır
+            if(goCol == counCol && goRow == countRow){
+                System.out.println("ENTER DIFFERENT VALUE");
+                continue;
+            }
             // Mayın kontrolü
             checkMine(goRow,goCol);
+            counCol = goCol;
+            countRow = goRow;
             // Eğer girin konumda mayın yoksa
             if(managerMap[goRow][goCol] != -1){
                 System.out.println("GOOD CHOICE");
@@ -50,12 +65,14 @@ public class MineSweeper {
                 // %75 alanı doğru ve temiz girerse (tek seferde oyunu bitirirse) koşulu
                 if(clearChoice == boardSize - ((boardSize*25) / 100)){
                     System.out.println("CONGRATULATIONS, YOU WON!!!");
+                    userValue.close();
                     break;
                 }
             }
             else{
                 // Girilen konumda mayın varsa
                 System.out.println("GAME OVER! BAD CHOICE");
+                userValue.close();
                 break;
             }
         }
@@ -92,9 +109,8 @@ public class MineSweeper {
         int rowMine, colMine, count = 0;
         while (count != ((boardSize * 25) / 100)) {
             // Verilen toplam satır ve sütun değeri kadar atanacak random mayın bilgisi
-            rowMine = random.nextInt(rowNumber);
-            colMine = random.nextInt(colNumber);
-
+            rowMine = giveMine.nextInt(rowNumber);
+            colMine = giveMine.nextInt(colNumber);
             if (managerMap[rowMine][colMine] != -1) {
                 managerMap[rowMine][colMine] = -1;
                 count++;
