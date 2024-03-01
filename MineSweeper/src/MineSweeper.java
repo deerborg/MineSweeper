@@ -1,139 +1,136 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MineSweeper {
+    int rowNumber;
+    int colNumber;
+    int boardSize;
+    int[][] managerMap;
+    int[][] userMap;
 
-   int rowNumber,colNumber; // Kullanıcıdan alacağımız satır ve sütun bilgisi
-   int boardSize; // %25 mayın eklemek için oyun alanı değişkeni
-   int[][] adminBoard; // Mayınların nereye eklendiğini gösterecek olan dizi
-   int[][] userBoard;  // Kullanıcının göreceği dizi, sadece "-" değerler görecek
-   boolean gameIsContinue = true; // Kullanıcının mayına basana kadar ki devam edeceği durumu döngü içinde kullanır, false durumunda  kullanıcı mayına bastığı için oyun bitecektir
-   
-   Random random = new Random(); // Rastgele mayın atamaları için kullanılacak
-   Scanner scanner = new Scanner(System.in); // Kullanıcıdan satır sutun bilgileri almak için kullanılacak
-
-    MineSweeper(int rowNumber, int colNumber) {
-        
+    public MineSweeper(int rowNumber, int colNumber) {
         this.rowNumber = rowNumber;
         this.colNumber = colNumber;
-        this.adminBoard = new int[colNumber][rowNumber];
-        this.userBoard = new int[colNumber][rowNumber];
-        this.boardSize = (rowNumber * colNumber);
+        this.managerMap = new int[rowNumber][colNumber];
+        this.userMap = new int[rowNumber][colNumber];
+        this.boardSize = rowNumber * colNumber;
     }
-    // Oyunu çalıştıracak olan metot
-    public void goPlay(){
-        int isSuccess = 0,goRow,goCol; // Kullanıcıdan gideceği konumu eşitleyeceğimiz yeni satır ve sütün değişkenleri
-        
-        
-        createMine();
-        crateBoard(adminBoard); // mayınların yerini gösteren, adminin göreceği tablo.
-        
-        System.out.println("Game Ready");
-        while(gameIsContinue){
-            
-            crateBoard(userBoard); // mayınları göstermeyen, oyuncunun göreceği tablo
-            
-            
-            System.out.println("The row you want to go to : ");
-            goRow = scanner.nextInt(); // yeni satır konumu bilgisi
-            
-            
-            // Oluşturulan tablonun satır ve sütünündan fazla değer girerse
+
+    Random random = new Random();
+    Scanner scanner = new Scanner(System.in);
+
+    public void goPlay() {
+        // Yeni konum satır ve sütün değişkenleri, tek seferde oyunu bitirebilme kontrolü için sayaç
+        int goRow,goCol,clearChoice = 0;
+        addMine();
+        createBoardManager(managerMap);
+        System.out.println("---------------");
+        while(true){
+            createBoardPlayer(userMap);
+            // Gidilecek satır bilgisi
+            System.out.println("ENTER ROW");
+            goRow = scanner.nextInt();
             if(goRow >= rowNumber  || goRow < 0 ){
-                System.out.println("ERROR");
+                System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
-            
-            
-            System.out.println("The col you want to go to : ");
-            goCol = scanner.nextInt(); // yeni sütun konumu bilgisi
-            
-
-            
-            // Oluşturulan tablonun satır ve sütünündan fazla değer girerse
+            // Gidilecek sütun bilgisi
+            System.out.println("ENTER COL");
+            goCol = scanner.nextInt();
             if(goCol >= colNumber || goCol < 0){
-                System.out.println("ERROR");
+                System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
-            // Daha önceden girdiği satır ve sütunu kontol eder
-            
-            if(adminBoard[goRow][goCol] != -1){ // Verdiği değerler mayına denk gelmiyorsa koşul bloğu
-
-                controlMine(goRow,goCol);
-                System.out.println();
-                System.out.println("Good choice");
-                isSuccess++;
-                if(isSuccess == boardSize - ((boardSize * 25) / 100)){
-                    System.out.println();
-                    System.out.println("TEK ATTİN AQ");
-                    gameIsContinue = false;
+            // Mayın kontrolü
+            checkMine(goRow,goCol);
+            // Eğer girin konumda mayın yoksa
+            if(managerMap[goRow][goCol] != -1){
+                System.out.println("GOOD CHOICE");
+                clearChoice++;
+                // %75 alanı doğru ve temiz girerse (tek seferde oyunu bitirirse) koşulu
+                if(clearChoice == boardSize - ((boardSize*25) / 100)){
+                    System.out.println("CONGRATULATIONS, YOU WON!!!");
+                    break;
                 }
             }
             else{
-                System.out.println();
-                System.out.println("BOOOOM!!");
-                System.out.println("Game over");
-                gameIsContinue = false;
+                // Girilen konumda mayın varsa
+                System.out.println("GAME OVER! BAD CHOICE");
+                break;
             }
-        } 
-    }
-    // Mayınları eklediğimiz metot
-    public void createMine(){
-        
-        int mineRow,mineCol; // mayınların ekleneceği satır ve sütun değişkenleri
-        int count = 0; // %25 kadar mayın ekleyeğimiz için while içinde %25 geçmemesi amaçlı counter
-        
-        while(count != ((boardSize * 25) / 100 )){ // 0.25 ile çarpmak double değer olduğu için, 5x5 boyutunda tabloda hata alır
-            
-            mineRow = random.nextInt(rowNumber); // satır içinde rastgele indisleri belirler
-            mineCol = random.nextInt(colNumber); // sütun içinde rastgele indisleri belirler
-            
-            if(adminBoard[mineRow][mineCol] != -1){ // Rastgele mayınlar gene aynı indis içinde değilse koşula girer
-                adminBoard[mineRow][mineCol] = -1;  // Koşula girerse mayınları -1 olarak belirler.
-                count++;                            // Koşul %25 adet olana kadar counteri arttırır. 
-            }            
         }
     }
-    // Oyun tablosunun çıktısı - ADMİN
-    public void crateBoard(int[][] board){
-        
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++){
-                if(board[i][j] != -1){
-                    System.out.print(board[i][j] + " ");
-                } 
-                else{
-                    System.out.print(" x ");
+    // Mayınların gösterildiği harita
+    public void createBoardManager(int[][] board) {
+        for (int[] rowValue : board) {
+            for (int colValue : rowValue) {
+                if (colValue != -1) {
+                    System.out.print(" - ");
+                } else {
+                    System.out.print(" * ");
                 }
             }
             System.out.println();
         }
     }
-  
-    
-    // Mayınları kontrol eden metot
-    public void controlMine(int controlRow, int controlCol){
-        
-        // Girilen konumun etrafındaki mayınları kontrol eden koşul blokları
-        // controlRow ve  controlCol : goPlay() metodu içindeki, kullanıcıdan aldığımız kordinatlardır.
-        if(adminBoard[controlRow][controlCol] == 0){
-            
-        // Girilen konumda koşulların sağladığı konumlar ise, etrafındaki mayınların sayısına göre arttırır, default olarak mayınsız bölgeler 0'dır.
-        
-        // Girilen konumlar
-        if((controlCol < (colNumber - 1)) && (adminBoard[controlRow][controlCol + 1]) == -1){ 
-            userBoard[controlRow][controlCol]++;
+    // Oyuncuya gösterilecek harita
+    public void createBoardPlayer(int[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(userMap[i][j] == 0){
+                    System.out.print(" - ");
+                }else{
+                    System.out.print(" "+board[i][j]+" ");
+                }
+            }
+            System.out.println();
         }
-        if((controlRow < (rowNumber - 1)) && (adminBoard[controlRow + 1][controlCol]) == -1){ 
-            userBoard[controlRow][controlCol]++;
+    }
+    // %25 kadar mayın ekleme metodu
+    public void addMine() {
+        // Satır ve sütün için mayın değişkenleri, %25 kadar ataması için sayaç
+        int rowMine, colMine, count = 0;
+        while (count != ((boardSize * 25) / 100)) {
+            // Verilen toplam satır ve sütun değeri kadar atanacak random mayın bilgisi
+            rowMine = random.nextInt(rowNumber);
+            colMine = random.nextInt(colNumber);
+
+            if (managerMap[rowMine][colMine] != -1) {
+                managerMap[rowMine][colMine] = -1;
+                count++;
+            }
         }
-        if((controlCol > 0) &&(adminBoard[controlRow][controlCol - 1]) == -1){ 
-            userBoard[controlRow][controlCol]++;
+    }
+    // Mayın kontrol metodu
+    public void checkMine(int controlRow, int controlCol) {
+        // Mayın olmama koşulu
+        if (managerMap[controlRow][controlCol] == 0) {
+            // Dikey konumlarda sağ, sol, alt, üst konumların mayın kontrolü
+            if ((controlCol < (colNumber - 1)) && (managerMap[controlRow][controlCol + 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlRow < (rowNumber - 1)) && (managerMap[controlRow + 1][controlCol]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlCol > 0) && (managerMap[controlRow][controlCol - 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlRow > 0) && (managerMap[controlRow - 1][controlCol]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            // Çapraz konumlarda sağ, sol, alt, üst konumların mayın kontrolü
+            if ((controlRow > 0) && (controlCol < (colNumber - 1)) && (managerMap[controlRow - 1][controlCol + 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlCol > 0) && (controlRow > 0) && (managerMap[controlRow - 1][controlCol - 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlCol > 0) && (controlRow < (rowNumber - 1)) && (managerMap[controlRow + 1][controlCol - 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
+            if ((controlRow < (rowNumber - 1)) && (controlCol < (colNumber - 1)) && (managerMap[controlRow + 1][controlCol + 1]) == -1) {
+                userMap[controlRow][controlCol]++;
+            }
         }
-        if((controlRow > 0) && (adminBoard[controlRow - 1][controlCol]) == -1){ 
-            userBoard[controlRow][controlCol]++;
-        }
-    } 
-  }
-}    
+    }
+}
