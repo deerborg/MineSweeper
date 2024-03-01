@@ -15,6 +15,6 @@ It is a text-based minefield game prepared for Patika+.
   
 ## Demo
 
-![Video](https://github.com/deerborg/MineSweeper/assets/152931069/970e186b-7792-46ef-94ed-8967d9499e4f)
+![ezgif com-video-to-gif-converter](https://github.com/deerborg/MineSweeper/assets/152931069/381f21cb-6eb5-4503-9342-a8cbe4b1cdab)
 
   
