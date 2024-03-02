@@ -23,6 +23,6 @@ public class Main {
             break;
         }
         MineSweeper gameCreate = new MineSweeper(rowNumber,colNumber); // 5. Madde : MineSweeper class'ı çağırılarak oyun başlatılabilir
-        gameCreate.goPlay();
+        gameCreate.goPlay(); // Oyunu başlatan metot
     }
 }

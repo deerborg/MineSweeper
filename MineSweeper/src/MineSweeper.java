@@ -20,10 +20,10 @@ public class MineSweeper {
     }
     Random giveMine = new Random();
     Scanner userValue = new Scanner(System.in);
-
     public void goPlay() { // 6. Madde : Oyun başlatma metodu
 
-        int goRow , goCol,clearChoice = 0, countRow = -1, counCol = -1;
+        int goRow , goCol,clearChoice = 0,checkAgainRow = -1,chekAgainCol = -1;
+
 
         addMine();
         createBoardManager(managerMap); // Mayınlı haritanın çıktısı
@@ -46,14 +46,22 @@ public class MineSweeper {
                 System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
-            if(goCol == counCol && goRow == countRow){ // Tekrar aynı konumları girerse çalışacak koşul bloğu
-                System.out.println("ENTER DIFFERENT VALUE");
+
+            if (checkAgainRow == goRow && chekAgainCol == goCol) { // Aynı değerleri tur içinde girerse tekrar değer girmesini ister
+                System.out.println("SAME VALUE, TRY AGAIN");
+                continue;
+            }
+
+            chekAgainCol = goCol;
+            checkAgainRow = goRow;
+
+            if(userMap[goRow][goCol] > 0){ // Daha önceden çervesinde mayın olan bir konumu açarsa ve tekrar aynı konumu girerse, tekrar değer girmesini ister
+                System.out.println("SAME VALUE ! REPEAT SELECTION MAY BREAK GAME MECHANICS!\nGO ENTER NEW VALUE");
                 continue;
             }
             // Mayın kontrolü
             checkMine(goRow,goCol);
-            counCol = goCol;
-            countRow = goRow;
+
             if(managerMap[goRow][goCol] != -1){
                 System.out.println("GOOD CHOICE");
                 clearChoice++;
