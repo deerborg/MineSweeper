@@ -4,7 +4,8 @@
 
 Patika+ için hazırlanan bitirme projesidir. 
 ---
-    Kullanıcıdan alınan değerler ile oluşturulan oyun tablosu (matris) ile,  oyuncunun mayınları (-1) seçmeden ilerleyeceği kazanma senaryosu üzerine kurulmuş metin tabanlı oyundur. 
+    Kullanıcıdan alınan değerler ile oluşturulan oyun tablosu (matris),
+    oyuncunun mayınları (-1) seçmeden ilerleyeceği kazanma veya kaybetme senaryosu üzerine kurulmuş metin tabanlı oyundur. 
 
 ## METOTLAR
 | Sıra | Metot  | Açıklama |
@@ -27,6 +28,7 @@ Patika+ için hazırlanan bitirme projesidir.
 | 5   |    Girilen konum çevresinde (çapraz ve dikey) mayın (-1) var ise, mayın adedi kadar değeri oyun tahtasında yazar    |
 | 6   |    Girilen konumda mayın (-1) var ise döngü biter, kaybedersiniz    |
 | 7   |    Girilen tüm konumların %75 kadarı temiz ise oyunu bitirir, kazanırsınız    |
+
 
 
 ## DEMO
