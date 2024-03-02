@@ -27,7 +27,8 @@ Patika+ için hazırlanan bitirme projesidir.
 | 4   |    Girilen yeni konumda mayın (-1) yok ise oyun sizden konum istemeye devam eder    |
 | 5   |    Girilen konum çevresinde (çapraz ve dikey) mayın (-1) var ise, mayın adedi kadar değeri oyun tahtasında yazar    |
 | 6   |    Girilen konumda mayın (-1) var ise döngü biter, kaybedersiniz    |
-| 7   |    Girilen tüm konumların %75 kadarı temiz ise oyunu bitirir, kazanırsınız    |
+| 7   |    Girilen konumun çervesinde mayın (-1) yoksa " - " olarak devam eder   |
+| 8   |    Girilen tüm konumların %75 kadarı temiz ise oyunu bitirir, kazanırsınız    |
 
 
 
