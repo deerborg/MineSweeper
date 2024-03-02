@@ -18,7 +18,7 @@ Patika+ için hazırlanan bitirme projesidir.
 
 
 
-## PROJE ÖZET AÇIKLAMA
+## GENEL
 | Sıra |  Açıklama |
 | :---:         |:---     |     
 | 1   |    2 X 2 ve daha büyük tahta oluşturulmalıdır, yoksa oyunu başlatmaz tekrar değer girmenizi ister    |
