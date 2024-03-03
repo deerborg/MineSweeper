@@ -39,9 +39,9 @@ Patika+ için hazırlanan bitirme projesidir.
     
       Sebeplerden dolayı tamamen String dizilere çevrilip, baştan yazılmıştır.
       3 Mart 2024 02.35 
-    
-    Güncelleme  
-    ![here](https://github.com/deerborg/MineSweeper/commit/21c2bfa68e89c8e00abc09614b9af59bf5d9464c)
+   
+ Güncelleme: 
+ ![here](https://github.com/deerborg/MineSweeper/commit/21c2bfa68e89c8e00abc09614b9af59bf5d9464c)
     
     
 
