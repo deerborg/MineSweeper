@@ -49,7 +49,7 @@ public class MineSweeper {
             System.out.print("ENTER COL: ");
             goCol = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
 
-            if (goCol < 0 || goCol > rowNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
+            if (goCol < 0 || goCol > colNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
                 System.out.println("INVALID VALUE, TRY AGAIN");
                 continue;
             }
@@ -68,11 +68,12 @@ public class MineSweeper {
 
 
             controlMine(goRow, goCol);
-            if (managerMap[goRow][goCol].equals("*")) { // 13. Madde : Seçilen konumda mayın var ise oyunun sonlanacağı blok
-                System.out.println("ITS MINE... BOOOM! GAME OVER!");
 
+            if (managerMap[goRow][goCol].equals("*")) { // 15. Madde ve 13. Madde : Seçilen konumda mayın var ise oyunun sonlanacağı blok
+                System.out.println("ITS MINE... BOOOM! GAME OVER!");
                 break;
-            } else {
+            }
+            else {
 
                 checkMineMap(goRow, goCol); // 11. Madde : Kullanıcının her hamlesinde haritayı günceller ve mayın kontrollerini burada gösterir
 
@@ -81,7 +82,7 @@ public class MineSweeper {
                 System.out.println("GOOD CHOICE");
                 clearChoice++;
 
-                if (clearChoice == boardSize - ((boardSize * 25) / 100)) { // 14. Madde : %75 alanı doğru ve temiz girerse (tek seferde oyunu bitirirse) koşul bloğu
+                if (clearChoice == boardSize - ((boardSize * 25) / 100)) { //15. Madde ve 14. Madde : %75 alanı doğru ve temiz girerse (tek seferde oyunu bitirirse) koşul bloğu
                     System.out.println("CONGRATULATIONS, YOU WON!!!");
                     userValue.close();
                     break;
