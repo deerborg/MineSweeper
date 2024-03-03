@@ -13,7 +13,7 @@ Patika+ için hazırlanan bitirme projesidir.
 | 1   |   goPlay()| Oyunu başlatır    |
 | 2   |   createBoardMap()   | managerMap değişkeni tanımlanırsa mayınları, playerMap değişkeni tanımlanırsa sade oyun alanını oluşturur    |
 | 3   |   checkMineMap()   | Oyuncunun göreceği ve güncellenecek olan haritayı oluşturur, mayın sayısına göre konumlarında rakam güncellemesi yapar   |
-| 4   |   addMine() | Rastgele konumlarda, haritanın alanının %25 kadar mayın (-1) oluşturur    |
+| 4   |   addMine() | Rastgele konumlarda, haritanın alanının %25 kadar mayın (*) oluşturur    |
 | 5   |   controlMine()  | Girilen yeni konumda mayın işaretlemeleri için dikey ve çapraz sorgu yapar.     |
 
 
