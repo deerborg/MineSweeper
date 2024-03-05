@@ -39,32 +39,32 @@ public class MineSweeper {
         while (true) {
 
             // Verilen satır bilgisinin sayısal değer olup olmadığını sorgulama bloğu
-            while (true){
+            while (true) {
                 System.out.print("ENTER ROW: ");
-                if(userValue.hasNextInt()){
+                if (userValue.hasNextInt()) {
                     goRow = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
                     if (goRow < 0 || goRow > rowNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
                         System.out.println("INVALID VALUE, TRY AGAIN");
                         continue;
-                    }break;
-                }
-                else {
+                    }
+                    break;
+                } else {
                     System.out.println("ENTER A INTEGER VALUE");
                     userValue.next();
                 }
             }
 
             // Verilen sütun bilgisinin sayısal değer olup olmadığını sorgulama bloğu
-            while (true){
+            while (true) {
                 System.out.print("ENTER COL: ");
-                if(userValue.hasNextInt()){
+                if (userValue.hasNextInt()) {
                     goCol = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
                     if (goCol < 0 || goCol > colNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
                         System.out.println("INVALID VALUE, TRY AGAIN");
                         continue;
-                    }break;
-                }
-                else {
+                    }
+                    break;
+                } else {
                     System.out.println("ENTER A INTEGER VALUE");
                     userValue.next();
                 }
@@ -87,8 +87,7 @@ public class MineSweeper {
             if (managerMap[goRow][goCol].equals("*")) { // 15. Madde ve 13. Madde : Seçilen konumda mayın var ise oyunun sonlanacağı blok
                 System.out.println("ITS MINE... BOOOM! GAME OVER!");
                 break;
-            }
-            else {
+            } else {
 
                 checkMineMap(goRow, goCol); // 11. Madde : Kullanıcının her hamlesinde haritayı günceller ve mayın kontrollerini burada gösterir
 
