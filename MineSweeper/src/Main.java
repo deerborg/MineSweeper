@@ -8,15 +8,14 @@ public class Main {
         // En az 2x2 boyutunda oyun alanı oluşturulabilir
         while (true) { // 7. Madde : Oyun alanının satır boyutu kullanıcı tarafından, 2' den büyük ve sayısal olma şartları sağlanır
             System.out.print("ENTER HEIGHT: ");
-            if(userValue.hasNextInt()){
+            if (userValue.hasNextInt()) {
                 rowNumber = userValue.nextInt();
                 if (rowNumber < 2) {
                     System.out.println("PLEASE ENTER A BIGGER THEN 2");
                     continue;
                 }
                 break;
-            }
-            else {
+            } else {
                 System.out.println("PLEASE ENTER A INTEGER VALUE");
                 userValue.next();
             }
@@ -24,15 +23,14 @@ public class Main {
         }
         while (true) { // 7. Madde : Oyun alanının sütun boyutu kullanıcı tarafından, 2' den büyük ve sayısal olma şartları sağlanır
             System.out.print("ENTER WIDTH: ");
-            if(userValue.hasNextInt()){
+            if (userValue.hasNextInt()) {
                 colNumber = userValue.nextInt();
                 if (colNumber < 2) {
                     System.out.println("PLEASE ENTER A BIGGER THEN 2");
                     continue;
                 }
                 break;
-            }
-            else {
+            } else {
                 System.out.println("PLEASE ENTER A INTEGER VALUE");
                 userValue.next();
             }
