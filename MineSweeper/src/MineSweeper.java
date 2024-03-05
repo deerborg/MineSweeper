@@ -26,7 +26,7 @@ public class MineSweeper {
     Random mineValue = new Random();
     Scanner userValue = new Scanner(System.in);
 
-    // 6. Madde : Oyun başlatma metodu
+    // 6. Madde : Oyunu başlatan metot
     public void goPlay() {
 
         int goRow, goCol, clearChoice = 0, checkAgainRow = -1, chekAgainCol = -1;
@@ -38,20 +38,36 @@ public class MineSweeper {
 
         while (true) {
 
-            System.out.print("ENTER ROW: ");
-            goRow = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
-
-            if (goRow < 0 || goRow > rowNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
-                System.out.println("INVALID VALUE, TRY AGAIN");
-                continue;
+            // Verilen satır bilgisinin sayısal değer olup olmadığını sorgulama bloğu
+            while (true){
+                System.out.print("ENTER ROW: ");
+                if(userValue.hasNextInt()){
+                    goRow = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
+                    if (goRow < 0 || goRow > rowNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
+                        System.out.println("INVALID VALUE, TRY AGAIN");
+                        continue;
+                    }break;
+                }
+                else {
+                    System.out.println("ENTER A INTEGER VALUE");
+                    userValue.next();
+                }
             }
 
-            System.out.print("ENTER COL: ");
-            goCol = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
-
-            if (goCol < 0 || goCol > colNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
-                System.out.println("INVALID VALUE, TRY AGAIN");
-                continue;
+            // Verilen sütun bilgisinin sayısal değer olup olmadığını sorgulama bloğu
+            while (true){
+                System.out.print("ENTER COL: ");
+                if(userValue.hasNextInt()){
+                    goCol = userValue.nextInt();  // 9. Madde : Kullanıcıdan alınacak olan işaretleme bilgisi
+                    if (goCol < 0 || goCol > colNumber - 1) {  // 10. Madde : Girilen sütun bilgisinin toplam dizi alanı dışında olma durumu
+                        System.out.println("INVALID VALUE, TRY AGAIN");
+                        continue;
+                    }break;
+                }
+                else {
+                    System.out.println("ENTER A INTEGER VALUE");
+                    userValue.next();
+                }
             }
             if (chekAgainCol == goCol && checkAgainRow == goRow) { // Aynı değerleri tur içinde girerse tekrar değer girmesini ister
                 System.out.println("YOU HAVE ENTERED REPEATED VALUES, ENTER DIFFERENT VALUES");
@@ -65,7 +81,6 @@ public class MineSweeper {
                 System.out.println("YOU ENTERED THE SAME LOCATIONS!");
                 continue;
             }
-
 
             controlMine(goRow, goCol);
 
@@ -91,7 +106,7 @@ public class MineSweeper {
         }
     }
 
-    // 6. Madde : Mayınların gösterildiği ve mayınsız gösterilecek tek seferlik haritaları oluşturan metot
+    // 6. Madde : Kullanıcıya mayınların gösterildiği (managerMap) ve oynayacağı haritayı (playerMap) oluşturan metot
     public void createBoardMap(String[][] board) {
 
         for (int i = 0; i < board.length; i++) {
@@ -103,7 +118,6 @@ public class MineSweeper {
                     board[i][j] = "-";
                     System.out.print(board[i][j] + " ");
                 }
-
             }
             System.out.println();
         }
@@ -122,12 +136,10 @@ public class MineSweeper {
                 managerMap[rowMine][colMine] = "*";
                 mineCount++;
             }
-
         }
-
     }
 
-    // 6. Madde : Mayınların gösterilmediği, oyuncunun ilerleyeceği ve güncellenecek harita metodu
+    // 6. Madde : Güncellenecek haritayı oluşturan metottur. Çevredeki mayın sayısına göre girilen konumların değerini değiştirir.
     public void checkMineMap(int goRow, int goCol) {
 
         for (int i = 0; i < playerMap.length; i++) {
@@ -137,20 +149,19 @@ public class MineSweeper {
                     System.out.print(playerMap[goRow][goCol] + " ");
                     continue;
                 }
-
                 System.out.print(playerMap[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    // 6. Madde ve 12. Madde : Oyun sırasında verilen konumun dikey olarak sağ, sol, alt, üst ve çapraz olarak sağ, sol, alt, üst konumların kontrolü metodu
+    // 6. Madde ve 12. Madde : Mayınların gösterildiği harita (managerMap) üzerinden, konumları kontrol ederek kullanıcının verdiği konumun çevresindeki mayın sayısını verir.
     public void controlMine(int controlRow, int controlCol) {
 
 
         if (managerMap[controlRow][controlCol].equals("-")) {
 
-            // Dikey konumlarda sağ, sol, alt, üst konumların mayın kontrolü
+            // Dikey konumlarda; sağ - sol - alt - üst mayın kontrolleri
             if ((controlCol < (colNumber - 1)) && (managerMap[controlRow][controlCol + 1]).equals("*")) {
                 mineCounter++;
             }
@@ -167,7 +178,7 @@ public class MineSweeper {
                 mineCounter++;
             }
 
-            // Çapraz konumlarda sağ, sol, alt, üst konumların mayın kontrolü
+            // Çapraz konumlarda; sağ - sol - alt - üst mayın kontrolleri
             if ((controlRow > 0) && (controlCol < (colNumber - 1)) && (managerMap[controlRow - 1][controlCol + 1]).equals("*")) {
                 mineCounter++;
             }
@@ -184,7 +195,7 @@ public class MineSweeper {
                 mineCounter++;
             }
 
-            playerMap[controlRow][controlCol] = String.valueOf(mineCounter);
+            playerMap[controlRow][controlCol] = String.valueOf(mineCounter); // Sayısal değeri String ifadeye çevirir
         }
     }
 }
