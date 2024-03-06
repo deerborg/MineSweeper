@@ -5,8 +5,8 @@ public class Main {
         Scanner userValue = new Scanner(System.in);
         int rowNumber, colNumber;
 
-        // En az 2x2 boyutunda oyun alanı oluşturulabilir
-        while (true) { // 7. Madde : Oyun alanının satır boyutu kullanıcı tarafından, 2' den büyük ve sayısal olma şartları sağlanır
+        // Can create a playground of at least 2x2 size
+        while (true) { // Section - 7 : The row size of the playing field must be greater than 2 and must be a numerical value.
             System.out.print("ENTER HEIGHT: ");
             if (userValue.hasNextInt()) {
                 rowNumber = userValue.nextInt();
@@ -21,7 +21,7 @@ public class Main {
             }
 
         }
-        while (true) { // 7. Madde : Oyun alanının sütun boyutu kullanıcı tarafından, 2' den büyük ve sayısal olma şartları sağlanır
+        while (true) { // Section - 7 : The row size of the playing field must be greater than 2 and must be a numerical value.
             System.out.print("ENTER WIDTH: ");
             if (userValue.hasNextInt()) {
                 colNumber = userValue.nextInt();
@@ -36,7 +36,7 @@ public class Main {
             }
         }
 
-        MineSweeper gameCreate = new MineSweeper(rowNumber, colNumber); // 5. Madde : MineSweeper class'ı çağırılarak oyun başlatılabilir
-        gameCreate.goPlay(); // Oyunu başlatan metot
+        MineSweeper gameCreate = new MineSweeper(rowNumber, colNumber); // Section - 5 : The game is started by calling the MineSweeper class.
+        gameCreate.goPlay(); // Section - 6: The method that starts the game.
     }
 }
