@@ -6,6 +6,8 @@ Patika+ için hazırlanan bitirme projesidir.
 ---
     Kullanıcıdan alınan değerler ile oluşturulan oyun tablosu (matris), oyuncunun mayınları (*) seçmeden ilerleyeceği
     kazanma veya kaybetme senaryosu üzerine kurulmuş metin tabanlı oyundur. 
+---
+    Requires Java 21.0.2 to be controlled
 
 ## METOTLAR
 | Sıra | Metot  | Açıklama |
