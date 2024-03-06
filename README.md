@@ -22,7 +22,7 @@ Patika+ için hazırlanan bitirme projesidir.
 | Sıra |  Açıklama |
 | :---:         |:---     |     
 | 1   |    2 X 2 ve daha büyük tahta oluşturulmalıdır, yoksa oyunu başlatmaz tekrar değer girmenizi ister    |
-| 2   |    Oluşturulan oyun tahtası içerisinde konum girmenizi ister, girilen konum alandan büyük veya 0'dan küçük olamaz tekrar değer ister   |
+| 2   |    Oluşturulan oyun tahtası içerisinde konum girmenizi ister, girilen konum alandan büyük veya 0'dan küçük olamaz ve string ifadeler olamaz, girildiği takdirde tekrar değer ister   |
 | 3   |    Girilen yeni konum kaydedilir ve bir daha girilmemesi için koşul oluşturur    |
 | 4   |    Girilen yeni konumda mayın (*) yok ise oyun sizden konum istemeye devam eder    |
 | 5   |    Girilen konum çevresinde (çapraz ve dikey) mayın (*) var ise, mayın adedi kadar değeri oyun tahtasında yazar    |
