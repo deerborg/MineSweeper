@@ -29,7 +29,7 @@ public class MineSweeper {
     // Section - 6: The method that starts the game.
     public void goPlay() {
 
-        int goRow, goCol, clearChoice = 0, checkAgainRow = -1, chekAgainCol = -1;
+        int goRow, goCol, clearChoice = 0, checkAgainRow = -1, checkAgainCol = -1;
 
         addMines();
         createBoardMap(managerMap); // Map showing single-use mines.
@@ -59,7 +59,7 @@ public class MineSweeper {
                 System.out.print("ENTER COL: ");
                 if (userValue.hasNextInt()) {
                     goCol = userValue.nextInt();  // Section - 9 : Marking information to be received from the user.
-                    if (goCol < 0 || goCol > colNumber - 1) {  // Article - 10 : The situation where the entered column information is outside the total array area.
+                    if (goCol < 0 || goCol > colNumber - 1) {  // Section - 10 : The situation where the entered column information is outside the total array area.
                         System.out.println("INVALID VALUE, TRY AGAIN");
                         continue;
                     }
@@ -69,12 +69,12 @@ public class MineSweeper {
                     userValue.next();
                 }
             }
-            if (chekAgainCol == goCol && checkAgainRow == goRow) { // If the user enters the same values during the tour, she will be asked to enter a different value.
+            if (checkAgainCol == goCol && checkAgainRow == goRow) { // If the user enters the same values during the tour, she will be asked to enter a different value.
                 System.out.println("YOU HAVE ENTERED REPEATED VALUES, ENTER DIFFERENT VALUES");
                 continue;
             }
 
-            chekAgainCol = goCol;
+            checkAgainCol = goCol;
             checkAgainRow = goRow;
 
             if (!playerMap[goRow][goCol].equals("-")) { // Prevents the user from marking the previously marked location again.
