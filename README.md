@@ -2,7 +2,7 @@
 ![minesweeper](https://github.com/deerborg/MineSweeper/assets/152931069/eb72d0e0-3489-437e-ac20-1e363d89aaa2)
 # MINESWEEPER
 
-Patika+ için hazırlanan bitirme projesidir. 
+
 ---
     Kullanıcıdan alınan değerler ile oluşturulan oyun tablosu (matris), oyuncunun mayınları (*) seçmeden ilerleyeceği
     kazanma veya kaybetme senaryosu üzerine kurulmuş metin tabanlı oyundur. 
